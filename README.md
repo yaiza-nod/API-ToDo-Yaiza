@@ -19,9 +19,7 @@ Para el desarrollo de esta API se han utilizado las siguientes herramientas:
 
 ## Versiones 📌
 
-
 # Historial de versiones de la API: 
-
 
 **1. Versión 1.0 -> En una primera versión, la API es capaz de:**
 
@@ -30,7 +28,7 @@ Para el desarrollo de esta API se han utilizado las siguientes herramientas:
   - Marcarlas como completadas
 
   - Desmarcarlas
-
+  
 
 **2. Versión 2.0 -> En la segunda versión de la API, se añade el filtrado de las tareas.**
 
