@@ -17,6 +17,50 @@ Para el desarrollo de esta API se han utilizado las siguientes herramientas:
 * [Docker](https://www.docker.com/) - Usado para dockerizar la API.
 
 
+## Versiones 📌
+
+
+# Historial de versiones de la API: 
+
+
+**1. Versión 1.0 -> En una primera versión, la API es capaz de:**
+
+  - Crear tareas
+
+  - Marcarlas como completadas
+
+  - Desmarcarlas
+
+
+**2. Versión 2.0 -> En la segunda versión de la API, se añade el filtrado de las tareas.**
+
+  - Ordenarlas por fecha de creación
+
+  - Ordenarlas por orden alfabético
+
+  - Filtrarlas por completadas, pendientes o todas
+
+  - Añadir categorías a las listas
+
+  - Poder mostrar cada categoría en una vista independiente (por medio de filtros)
+
+
+**3. Versión 3.0 -> En la tercera versión, se añade la gestión de usuarios y sesiones.**
+
+  - Gestión de usuario
+
+  - Gestión de inicio de sesión con token
+
+  - Persistencia del usuario
+
+  - Gestión de recuperación de contraseña
+
+
+**4. Versión 4.0 -> En la última versión, la API se dockeriza.**
+
+  - API dockerizada.
+
+
 ## Autores ✒️
 
 Este proyecto ha sido desarrollado por: 
