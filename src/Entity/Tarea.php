@@ -25,7 +25,7 @@ class Tarea
     private $marcada;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $fecha;
 
