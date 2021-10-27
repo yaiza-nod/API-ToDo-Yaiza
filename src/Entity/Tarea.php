@@ -35,6 +35,11 @@ class Tarea
     private $titulo;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $descripcion;
+
+    /**
      * ORM\ManyToOne(targetEntity=Usuario::class, inversedBy="tareasAsignadas")
      * ORM\JoinColumn(nullable=false)
      */
@@ -92,4 +97,16 @@ class Tarea
 
         return $this;
     }*/
+
+    public function getDescripcion(): ?string
+    {
+        return $this->descripcion;
+    }
+
+    public function setDescripcion(?string $descripcion): self
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
 }
