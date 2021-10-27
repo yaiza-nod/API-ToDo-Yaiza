@@ -1,5 +1,7 @@
 <?php
 
+# Edito la entidad con la relación que añadiré en la versión 3
+
 namespace App\Entity;
 
 use App\Repository\TareaRepository;
@@ -33,10 +35,10 @@ class Tarea
     private $titulo;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Usuario::class, inversedBy="tareasAsignadas")
-     * @ORM\JoinColumn(nullable=false)
+     * ORM\ManyToOne(targetEntity=Usuario::class, inversedBy="tareasAsignadas")
+     * ORM\JoinColumn(nullable=false)
      */
-    private $usuarioAsignado;
+    # private $usuarioAsignado;
 
     public function getId(): ?int
     {
@@ -79,7 +81,7 @@ class Tarea
         return $this;
     }
 
-    public function getUsuarioAsignado(): ?Usuario
+    /*public function getUsuarioAsignado(): ?Usuario
     {
         return $this->usuarioAsignado;
     }
@@ -89,5 +91,5 @@ class Tarea
         $this->usuarioAsignado = $usuarioAsignado;
 
         return $this;
-    }
+    }*/
 }

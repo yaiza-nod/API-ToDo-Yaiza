@@ -1,5 +1,7 @@
 <?php
 
+# Edito la entidad con la relación que añadiré en la versión 3
+
 namespace App\Entity;
 
 use App\Repository\UsuarioRepository;
@@ -30,13 +32,13 @@ class Usuario
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity=Tarea::class, mappedBy="usuarioAsignado", orphanRemoval=true)
+     * ORM\OneToMany(targetEntity=Tarea::class, mappedBy="usuarioAsignado", orphanRemoval=true)
      */
     private $tareasAsignadas;
 
     public function __construct()
     {
-        $this->tareasAsignadas = new ArrayCollection();
+        #$this->tareasAsignadas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -69,9 +71,9 @@ class Usuario
     }
 
     /**
-     * @return Collection|Tarea[]
+     * return Collection|Tarea[]
      */
-    public function getTareasAsignadas(): Collection
+    /*public function getTareasAsignadas(): Collection
     {
         return $this->tareasAsignadas;
     }
@@ -96,5 +98,5 @@ class Usuario
         }
 
         return $this;
-    }
+    }*/
 }
