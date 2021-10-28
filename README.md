@@ -21,7 +21,7 @@ Para el desarrollo de esta API se han utilizado las siguientes herramientas:
 
 # Historial de versiones de la API: 
 
-**1. Versión 1.0 -> En una primera versión, la API es capaz de:**
+**✅ 1. Versión 1.0 -> En una primera versión, la API es capaz de:**
 
   - Crear tareas
 
@@ -30,7 +30,7 @@ Para el desarrollo de esta API se han utilizado las siguientes herramientas:
   - Desmarcarlas
   
 
-**2. Versión 2.0 -> En la segunda versión de la API, se añade el filtrado de las tareas.**
+**🔜 2. Versión 2.0 -> En la segunda versión de la API, se añade el filtrado de las tareas.**
 
   - Ordenarlas por fecha de creación
 
@@ -43,7 +43,7 @@ Para el desarrollo de esta API se han utilizado las siguientes herramientas:
   - Poder mostrar cada categoría en una vista independiente (por medio de filtros)
 
 
-**3. Versión 3.0 -> En la tercera versión, se añade la gestión de usuarios y sesiones.**
+**🔜 3. Versión 3.0 -> En la tercera versión, se añade la gestión de usuarios y sesiones.**
 
   - Gestión de usuario
 
@@ -54,7 +54,7 @@ Para el desarrollo de esta API se han utilizado las siguientes herramientas:
   - Gestión de recuperación de contraseña
 
 
-**4. Versión 4.0 -> En la última versión, la API se dockeriza.**
+**🔜 4. Versión 4.0 -> En la última versión, la API se dockeriza.**
 
   - API dockerizada.
 
