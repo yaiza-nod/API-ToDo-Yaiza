@@ -40,10 +40,20 @@ class Tarea
     private $descripcion;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $creacion;
+
+    /**
      * ORM\ManyToOne(targetEntity=Usuario::class, inversedBy="tareasAsignadas")
      * ORM\JoinColumn(nullable=false)
      */
     # private $usuarioAsignado;
+
+    public function __construct() {
+
+        $this->setCreacion(new \DateTime('now'));
+    }
 
     public function getId(): ?int
     {
@@ -106,6 +116,18 @@ class Tarea
     public function setDescripcion(?string $descripcion): self
     {
         $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    public function getCreacion(): ?\DateTimeInterface
+    {
+        return $this->creacion;
+    }
+
+    private function setCreacion(\DateTimeInterface $creacion): self
+    {
+        $this->creacion = $creacion;
 
         return $this;
     }
