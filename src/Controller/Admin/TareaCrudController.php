@@ -33,6 +33,7 @@ class TareaCrudController extends AbstractCrudController
             BooleanField::new('marcada'),
 
             DateTimeField::new('creacion')->hideOnForm(),
+            TextField::new('categoria'),
         ];
     }
 
