@@ -45,6 +45,11 @@ class Tarea
     private $creacion;
 
     /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $categoria;
+
+    /**
      * ORM\ManyToOne(targetEntity=Usuario::class, inversedBy="tareasAsignadas")
      * ORM\JoinColumn(nullable=false)
      */
@@ -128,6 +133,18 @@ class Tarea
     private function setCreacion(\DateTimeInterface $creacion): self
     {
         $this->creacion = $creacion;
+
+        return $this;
+    }
+
+    public function getCategoria(): ?string
+    {
+        return $this->categoria;
+    }
+
+    public function setCategoria(?string $categoria): self
+    {
+        $this->categoria = $categoria;
 
         return $this;
     }
