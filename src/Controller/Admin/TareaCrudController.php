@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\Tarea;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use \EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\BooleanFilter;
@@ -24,7 +26,7 @@ class TareaCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IntegerField::new('id')->hideOnForm(),
+            IntegerField::new('id')->hideOnForm()->hideOnDetail(),
             TextField::new('titulo'),
             TextEditorField::new('descripcion'),
             DateTimeField::new('fecha'),
@@ -48,6 +50,14 @@ class TareaCrudController extends AbstractCrudController
             // most of the times there is no need to define the
             // filter type because EasyAdmin can guess it automatically
             ->add(BooleanFilter::new('marcada'));
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)
+            ->add(Crud::PAGE_EDIT, Action::SAVE_AND_ADD_ANOTHER)
+            ;
     }
 
 }
