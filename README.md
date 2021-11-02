@@ -30,7 +30,7 @@ Para el desarrollo de esta API se han utilizado las siguientes herramientas:
   - Desmarcarlas
   
 
-**🔜 2. Versión 2.0 -> En la segunda versión de la API, se añade el filtrado de las tareas.**
+**✅ 2. Versión 2.0 -> En la segunda versión de la API, se añade el filtrado de las tareas.**
 
   - Ordenarlas por fecha de creación
 
