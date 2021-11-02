@@ -14,9 +14,12 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\ChoiceFilter;
 
 class TareaCrudController extends AbstractCrudController
 {
+
     public static function getEntityFqcn(): string
     {
         return Tarea::class;
@@ -33,7 +36,13 @@ class TareaCrudController extends AbstractCrudController
             BooleanField::new('marcada'),
 
             DateTimeField::new('creacion')->hideOnForm(),
-            TextField::new('categoria'),
+            ChoiceField::new('categoria')->setChoices([
+                'Trabajo' => 'Trabajo',
+                'Ocio' => 'Ocio',
+                'Viaje' => 'Viaje',
+                'Reunión' => 'Reunión',
+                'Sin categoría' => 'Sin categoría'
+            ])
         ];
     }
 
@@ -50,7 +59,14 @@ class TareaCrudController extends AbstractCrudController
 
             // most of the times there is no need to define the
             // filter type because EasyAdmin can guess it automatically
-            ->add(BooleanFilter::new('marcada'));
+            ->add(BooleanFilter::new('marcada'))
+            ->add(ChoiceFilter::new('categoria')->setChoices([
+                'Trabajo' => 'Trabajo',
+                'Ocio' => 'Ocio',
+                'Viaje' => 'Viaje',
+                'Reunión' => 'Reunión',
+                'Sin categoría' => 'Sin categoría'
+            ]));
     }
 
     public function configureActions(Actions $actions): Actions
