@@ -50,6 +50,11 @@ class Tarea
     private $categoria;
 
     /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $lista_categorias = [];
+
+    /**
      * ORM\ManyToOne(targetEntity=Usuario::class, inversedBy="tareasAsignadas")
      * ORM\JoinColumn(nullable=false)
      */
@@ -145,6 +150,18 @@ class Tarea
     public function setCategoria(?string $categoria): self
     {
         $this->categoria = $categoria;
+
+        return $this;
+    }
+
+    public function getListaCategorias(): ?array
+    {
+        return $this->lista_categorias;
+    }
+
+    public function setListaCategorias(?array $lista_categorias): self
+    {
+        $this->lista_categorias = $lista_categorias;
 
         return $this;
     }
