@@ -6,11 +6,14 @@ namespace App\Entity;
 
 use App\Repository\TareaRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiFilter;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=TareaRepository::class)
  * @ApiResource()
+ * [ApiFilter(BooleanFilter::class, properties: ['marcada'])]
+ * [ApiFilter(SearchFilter::class, properties: ['categoria' => 'exact'])]
  */
 class Tarea
 {
@@ -50,11 +53,6 @@ class Tarea
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $categoria;
-
-    /**
-     * @ORM\Column(type="array", nullable=true)
-     */
-    private $lista_categorias = [];
 
     /**
      * ORM\ManyToOne(targetEntity=Usuario::class, inversedBy="tareasAsignadas")
@@ -152,18 +150,6 @@ class Tarea
     public function setCategoria(?string $categoria): self
     {
         $this->categoria = $categoria;
-
-        return $this;
-    }
-
-    public function getListaCategorias(): ?array
-    {
-        return $this->lista_categorias;
-    }
-
-    public function setListaCategorias(?array $lista_categorias): self
-    {
-        $this->lista_categorias = $lista_categorias;
 
         return $this;
     }
