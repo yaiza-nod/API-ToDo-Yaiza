@@ -43,6 +43,7 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Tareas', 'fa fa-comment', Tarea::class),
 
             MenuItem::linktoRoute('Back to the website', 'fas fa-home', 'principal'),
+            MenuItem::linkToLogout('Logout', 'fa fa-sign-out'),
         ];
 
     }
