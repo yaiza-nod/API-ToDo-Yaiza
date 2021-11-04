@@ -1,9 +1,8 @@
 <?php
 
-# Edito la entidad con la relación que añadiré en la versión 3
-
 namespace App\Entity;
 
+use Symfony\Component\HttpFoundation\Request;
 use App\Repository\TareaRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
@@ -55,10 +54,10 @@ class Tarea
     private $categoria;
 
     /**
-     * ORM\ManyToOne(targetEntity=Usuario::class, inversedBy="tareasAsignadas")
-     * ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tareas")
+     * @ORM\JoinColumn(nullable=false)
      */
-    # private $usuarioAsignado;
+    private $idUsuario;
 
     public function __construct() {
 
@@ -106,18 +105,6 @@ class Tarea
         return $this;
     }
 
-    /*public function getUsuarioAsignado(): ?Usuario
-    {
-        return $this->usuarioAsignado;
-    }
-
-    public function setUsuarioAsignado(?Usuario $usuarioAsignado): self
-    {
-        $this->usuarioAsignado = $usuarioAsignado;
-
-        return $this;
-    }*/
-
     public function getDescripcion(): ?string
     {
         return $this->descripcion;
@@ -150,6 +137,18 @@ class Tarea
     public function setCategoria(?string $categoria): self
     {
         $this->categoria = $categoria;
+
+        return $this;
+    }
+
+    public function getIdUsuario(): ?User
+    {
+        return $this->idUsuario;
+    }
+
+    public function setIdUsuario(?User $idUsuario): self
+    {
+        $this->idUsuario = $idUsuario;
 
         return $this;
     }
