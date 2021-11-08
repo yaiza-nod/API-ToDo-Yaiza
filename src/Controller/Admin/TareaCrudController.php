@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Tarea;
+use App\Repository\TareaRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -16,6 +17,13 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\ChoiceFilter;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use Doctrine\ORM\QueryBuilder;
+use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
+use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
+use EasyCorp\Bundle\EasyAdminBundle\Orm\EntityRepository;
 
 class TareaCrudController extends AbstractCrudController
 {
@@ -25,25 +33,44 @@ class TareaCrudController extends AbstractCrudController
         return Tarea::class;
     }
 
-
     public function configureFields(string $pageName): iterable
     {
-        return [
-            IntegerField::new('id')->hideOnForm()->hideOnDetail(),
-            TextField::new('titulo'),
-            TextEditorField::new('descripcion'),
-            DateTimeField::new('fecha'),
-            BooleanField::new('marcada'),
+            return [
+                IntegerField::new('id')->hideOnForm()->hideOnDetail()->hideOnIndex(),
+                TextField::new('titulo'),
+                TextEditorField::new('descripcion'),
+                DateTimeField::new('fecha'),
+                BooleanField::new('marcada'),
 
-            DateTimeField::new('creacion')->hideOnForm(),
-            ChoiceField::new('categoria')->setChoices([
-                'Trabajo' => 'Trabajo',
-                'Ocio' => 'Ocio',
-                'Viaje' => 'Viaje',
-                'Reunión' => 'Reunión',
-                'Sin categoría' => 'Sin categoría'
-            ])
-        ];
+                DateTimeField::new('creacion')->hideOnForm(),
+                ChoiceField::new('categoria')->setChoices([
+                    'Trabajo' => 'Trabajo',
+                    'Ocio' => 'Ocio',
+                    'Viaje' => 'Viaje',
+                    'Reunión' => 'Reunión',
+                    'Sin categoría' => 'Sin categoría'
+                ]),
+
+
+                AssociationField::new('idUsuario')
+                    ->setRequired(true)
+                    ->setFormTypeOptions(['query_builder' => function (TareaRepository $em) {
+                        return $em->createQueryBuilder('f')
+                            ->where('f.id_usuario_id = :idUsuario')
+                            ->orderBy('f.fecha', 'ASC')
+                            ->setParameter('idUsuario', $this->getUser()->getUserIdentifier())
+                            ;
+                    }])->hideOnIndex(),
+            ];
+
+    }
+
+    public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
+    {
+        $qb = $this->get(EntityRepository::class)->createQueryBuilder($searchDto, $entityDto, $fields, $filters);
+        $qb->andWhere('entity.idUsuario = :user');
+        $qb->setParameter('user', $this->getUser());
+        return $qb;
     }
 
     public function configureCrud(Crud $crud): Crud
