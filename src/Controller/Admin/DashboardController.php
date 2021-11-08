@@ -36,8 +36,8 @@ class DashboardController extends AbstractDashboardController
 
             MenuItem::linktoDashboard('Dashboard', 'fa fa-home'),
 
-            MenuItem::section('Usuario'),
-            MenuItem::linkToCrud('Usuarios', 'fa fa-user', User::class),
+            MenuItem::section('Usuario')->setPermission('ROLE_ADMIN'),
+            MenuItem::linkToCrud('Usuarios', 'fa fa-user', User::class)->setPermission('ROLE_ADMIN'),
 
             MenuItem::section('Tarea'),
             MenuItem::linkToCrud('Tareas', 'fa fa-comment', Tarea::class),

@@ -2,10 +2,8 @@
 
 namespace App\Entity;
 
-use Symfony\Component\HttpFoundation\Request;
 use App\Repository\TareaRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiFilter;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -122,7 +120,7 @@ class Tarea
         return $this->creacion;
     }
 
-    private function setCreacion(\DateTimeInterface $creacion): self
+    public function setCreacion(\DateTimeInterface $creacion): self
     {
         $this->creacion = $creacion;
 
