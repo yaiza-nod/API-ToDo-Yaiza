@@ -20,7 +20,6 @@ class IdUsuarioSubscriber implements EventSubscriberInterface
     {
         return [
             BeforeEntityPersistedEvent::class => ['setIdUsuario'],
-
         ];
     }
 

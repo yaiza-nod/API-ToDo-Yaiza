@@ -57,10 +57,8 @@ class TareaCrudController extends AbstractCrudController
                     ->setFormTypeOptions(['query_builder' => function (TareaRepository $em) {
                         return $em->createQueryBuilder('f')
                             ->where('f.id_usuario_id = :idUsuario')
-                            ->orderBy('f.fecha', 'ASC')
-                            ->setParameter('idUsuario', $this->getUser()->getUserIdentifier())
-                            ;
-                    }])->hideOnIndex(),
+                            ->setParameter('idUsuario', $this->getUser()->getUserIdentifier());
+                    }])->hideOnForm()->hideOnDetail()->hideOnIndex(),
             ];
 
     }
