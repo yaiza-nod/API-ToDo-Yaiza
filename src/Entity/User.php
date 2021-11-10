@@ -52,9 +52,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $isVerified = false;
 
     /**
-     * @ORM\OneToMany(targetEntity=Tarea::class, mappedBy="idUsuario")
+     * @ORM\OneToMany(targetEntity=Tarea::class, mappedBy="idUsuario", orphanRemoval=true)
      */
     private $tareas;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ResetPasswordRequest::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $reset;
 
     public function __construct()
     {
