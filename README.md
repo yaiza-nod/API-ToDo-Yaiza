@@ -43,7 +43,7 @@ Para el desarrollo de esta API se han utilizado las siguientes herramientas:
   - Poder mostrar cada categoría en una vista independiente (por medio de filtros)
 
 
-**🔜 3. Versión 3.0 -> En la tercera versión, se añade la gestión de usuarios y sesiones.**
+**✅ 3. Versión 3.0 -> En la tercera versión, se añade la gestión de usuarios y sesiones.**
 
   - Gestión de usuario
 
