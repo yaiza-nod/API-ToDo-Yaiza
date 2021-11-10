@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PrincipalController!{% endblock %}
+{% block title %}Esta es una API de lista de tareas (To Do List){% endblock %}
 
 {% block body %}
 <style>
@@ -9,12 +9,15 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/yaizafernandez/Escritorio/Desarrollo-API-ToDo/API-ToDo-Yaiza/src/Controller/PrincipalController.php'|file_link(0) }}">src/Controller/PrincipalController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/yaizafernandez/Escritorio/Desarrollo-API-ToDo/API-ToDo-Yaiza/templates/principal/index.html.twig'|file_link(0) }}">templates/principal/index.html.twig</a></code></li>
-    </ul>
+    <h1>API de lista de tareas (To Do List) 📝</h1>
+    <br/>
+    <button onclick="location.href='register'" class="btn btn-lg btn-primary" type="submit">
+        Pulsa aquí para ir a Registro de Usuarios
+    </button>
+    <br/>
+    <br/>
+    <button onclick="location.href='login'" class="btn btn-lg btn-primary" type="submit">
+        Pulsa aquí para ir a Login de Usuarios
+    </button>
 </div>
 {% endblock %}

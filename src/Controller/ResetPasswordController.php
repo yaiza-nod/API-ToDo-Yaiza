@@ -125,7 +125,7 @@ class ResetPasswordController extends AbstractController
             // The session is cleaned up after the password has been changed.
             $this->cleanSessionAfterReset();
 
-            return $this->redirectToRoute('principal');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('reset_password/reset.html.twig', [
@@ -172,10 +172,7 @@ class ResetPasswordController extends AbstractController
         $mailer->send($email);
 
         // Store the token object in session for retrieval in check-email route.
-        $this->storeTokenInSession($resetToken->getToken());
-
-        echo $resetToken->getToken();
-        die();
+        $this->setTokenObjectInSession($resetToken);
 
         return $this->redirectToRoute('app_check_email');
     }
