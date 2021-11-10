@@ -52,7 +52,7 @@ class Tarea
     private $categoria;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tareas", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tareas")
      * @ORM\JoinColumn(nullable=false)
      */
     private $idUsuario;
