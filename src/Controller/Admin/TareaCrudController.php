@@ -51,7 +51,6 @@ class TareaCrudController extends AbstractCrudController
                     'Sin categoría' => 'Sin categoría'
                 ]),
 
-
                 AssociationField::new('idUsuario')
                     ->setRequired(true)
                     ->setFormTypeOptions(['query_builder' => function (TareaRepository $em) {
