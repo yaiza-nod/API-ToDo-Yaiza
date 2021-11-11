@@ -110,7 +110,7 @@ class Tarea
 
     public function setDescripcion(?string $descripcion): self
     {
-        $this->descripcion = $descripcion;
+        $this->descripcion = strip_tags($descripcion);
 
         return $this;
     }
