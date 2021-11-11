@@ -9,11 +9,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\BooleanFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\ChoiceFilter;
@@ -38,7 +38,7 @@ class TareaCrudController extends AbstractCrudController
             return [
                 IntegerField::new('id')->hideOnForm()->hideOnDetail()->hideOnIndex(),
                 TextField::new('titulo'),
-                TextEditorField::new('descripcion'),
+                TextareaField::new('descripcion'),
                 DateTimeField::new('fecha'),
                 BooleanField::new('marcada'),
 
@@ -59,6 +59,8 @@ class TareaCrudController extends AbstractCrudController
                             ->where('f.id_usuario_id = :idUsuario')
                             ->setParameter('idUsuario', $this->getUser()->getUserIdentifier());
                     }])->hideOnForm()->hideOnDetail()->hideOnIndex(),
+
+
             ];
 
     }
@@ -75,6 +77,7 @@ class TareaCrudController extends AbstractCrudController
     {
         return $crud
             ->showEntityActionsInlined(true)
+            ->setPageTitle('detail', fn (Tarea $tarea) => sprintf( $tarea->getTitulo()))
             ;
     }
 
@@ -99,6 +102,7 @@ class TareaCrudController extends AbstractCrudController
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
             ->add(Crud::PAGE_EDIT, Action::SAVE_AND_ADD_ANOTHER)
+            ->remove(Crud::PAGE_DETAIL, Action::DELETE)
             ;
     }
 

@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -18,6 +19,13 @@ class DashboardController extends AbstractDashboardController
      */
     public function index(): Response
     {
+        // Si el usuario no ha iniciado sesión, redirigo al login:
+
+        if ($this->getUser() === NULL) {
+
+            return $this->redirect('login');
+        }
+
         $routeBuilder = $this->get(AdminUrlGenerator::class);
         $url = $routeBuilder->setController(TareaCrudController::class)->generateUrl();
 
