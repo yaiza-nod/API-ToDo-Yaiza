@@ -54,7 +54,7 @@ Para el desarrollo de esta API se han utilizado las siguientes herramientas:
   - Gestión de recuperación de contraseña
 
 
-**🔜 4. Versión 4.0 -> En la última versión, la API se dockeriza.**
+**✅ 4. Versión 4.0 -> En la última versión, la API se dockeriza.**
 
   - API dockerizada.
 
