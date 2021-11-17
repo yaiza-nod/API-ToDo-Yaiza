@@ -64,3 +64,9 @@ Para el desarrollo de esta API se han utilizado las siguientes herramientas:
 Este proyecto ha sido desarrollado por: 
 
 * **Yaiza Fernández** - [yaiza-nod](https://github.com/yaiza-nod)
+
+## Notas
+
+Para poder ejecutar la API con la base de datos, se ha incluido el script
+de la base de datos en un zip con contraseña. De este modo, solo con la contraseña
+del zip se puede acceder a la API con la base de datos con datos ya creados.
