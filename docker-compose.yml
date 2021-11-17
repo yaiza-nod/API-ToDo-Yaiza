@@ -12,26 +12,33 @@ services:
       SYMFONY_PROJECT_NAME: APIToDoYaiza
       MARIADB_HOST: mariadb
       MARIADB_PORT_NUMBER: 3306
-      MARIADB_ROOT_USER: root
-      MARIADB_ROOT_PASSWORD: Nodriza@01
-      MARIADB_USER: yaiza
-      MARIADB_PASSWORD: yaiza
-      MARIADB_DATABASE: APIToDoYaiza
+      MARIADB_ROOT_USER: ${MYSQL_ROOT_USER}
+      MARIADB_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MARIADB_USER: ${MYSQL_USER}
+      MARIADB_PASSWORD: ${MYSQL_PASSWORD}
+      MARIADB_DATABASE: ${MYSQL_DATABASE}
     depends_on:
       - db
+      - mailcatcher
+
+  mailcatcher:
+    image: schickling/mailcatcher
+    ports:
+      - "1025:1025"
+      - "1080:1080"
 
   db:
     image: mysql
     container_name: mysqldb
     environment:
       ALLOW_EMPTY_PASSWORD: 'yes'
-      MYSQL_DATABASE: APIToDoYaiza
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_PORT_NUMBER: 3306
       MYSQL_ROOT_HOST: '%'
-      MYSQL_ROOT_USER: root
-      MYSQL_ROOT_PASSWORD: Nodriza@01
-      MYSQL_USER: yaiza
-      MYSQL_PASSWORD: yaiza
+      MYSQL_ROOT_USER: ${MYSQL_ROOT_USER}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
 
     ports:
       - "3306:3306"
