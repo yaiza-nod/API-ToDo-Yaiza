@@ -9,4 +9,5 @@
 /var/
 /vendor/
 /public/API-ToDo-Yaiza/
+*/*.sql
 ###< symfony/framework-bundle ###
