@@ -1,21 +1,46 @@
-version: '3'
+version: "3.8"
 
 services:
-###> doctrine/doctrine-bundle ###
-  database:
-    image: postgres:${POSTGRES_VERSION:-13}-alpine
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app}
-      # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ChangeMe}
-      POSTGRES_USER: ${POSTGRES_USER:-symfony}
+  app:
+    image: 'bitnami/symfony:1'
+    container_name: symfony
+    ports:
+      - '8000:8000'
     volumes:
-      - db-data:/var/lib/postgresql/data:rw
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/postgresql/data:rw
-###< doctrine/doctrine-bundle ###
+      - '.:/app/APIToDoYaiza'
+    environment:
+      SYMFONY_PROJECT_NAME: APIToDoYaiza
+      MARIADB_HOST: mariadb
+      MARIADB_PORT_NUMBER: 3306
+      MARIADB_ROOT_USER: root
+      MARIADB_ROOT_PASSWORD: Nodriza@01
+      MARIADB_USER: yaiza
+      MARIADB_PASSWORD: yaiza
+      MARIADB_DATABASE: APIToDoYaiza
+    depends_on:
+      - db
+
+  db:
+    image: mysql
+    container_name: mysqldb
+    environment:
+      ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: APIToDoYaiza
+      MYSQL_PORT_NUMBER: 3306
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: Nodriza@01
+      MYSQL_USER: yaiza
+      MYSQL_PASSWORD: yaiza
+
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    volumes:
+      - mydb:/var/lib/mysql
+      - ./mydb-script/APIToDoYaiza.sql:/docker-entrypoint-initdb.d/APIToDoYaiza.sql
 
 volumes:
-###> doctrine/doctrine-bundle ###
-  db-data:
-###< doctrine/doctrine-bundle ###
+  mydb:
+  mydb-script:
