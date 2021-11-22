@@ -5,12 +5,20 @@ namespace App\Entity;
 use App\Repository\TareaRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=TareaRepository::class)
- * @ApiResource()
- * [ApiFilter(BooleanFilter::class, properties: ['marcada'])]
- * [ApiFilter(SearchFilter::class, properties: ['categoria' => 'exact'])]
+ * @ApiResource(
+ *     collectionOperations={"get"={"normalization_context"={"groups"="tarea:list"}}},
+ *     itemOperations={"get"={"normalization_context"={"groups"="tarea:item"}}},
+ *     order={"fecha"="DESC"},
+ *     paginationEnabled=false
+ * )
+ *
+ * @ApiFilter(SearchFilter::class, properties={"user": "exact"})
  */
 class Tarea
 {
@@ -18,42 +26,50 @@ class Tarea
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"tarea:list", "tarea:item"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"tarea:list", "tarea:item"})
      */
     private $marcada;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"tarea:list", "tarea:item"})
      */
     private $fecha;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"tarea:list", "tarea:item"})
      */
     private $titulo;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"tarea:list", "tarea:item"})
      */
     private $descripcion;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"tarea:list", "tarea:item"})
      */
     private $creacion;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * @Groups({"tarea:list", "tarea:item"})
      */
     private $categoria;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tareas")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"tarea:list", "tarea:item"})
      */
     private $idUsuario;
 

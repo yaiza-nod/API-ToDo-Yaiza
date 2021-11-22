@@ -55,13 +55,18 @@ class UserSerializerController extends AbstractController
         // $user = $this->getDoctrine()->getRepository('App:User')->find($id);
 
         $user =  $this->getDoctrine()->getManager()->getRepository('App:User')->find($id);
+        $data = [
+            'id' => $user->getId(),
+            'username' => $user->getUsername(),
+            'roles' => $user->getRoles(),
+            'password' => $user->getPassword(),
+            'email' => $user->getEmail(),
+            'isVerified' => $user->isVerified()
+        ];
 
-        /*echo var_dump($user);
-        die();*/
+        // Falta ver como serializo las tareas al haber una relación del ORM con el usuario
 
-        $jsonContent = $serializer->serialize($user, 'xml');
-
-        echo $jsonContent;
+        $jsonContent = $serializer->serialize($data, 'json');
 
         $response = new Response($jsonContent);
 
