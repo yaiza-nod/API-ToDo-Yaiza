@@ -31,6 +31,7 @@
         "symfony/security-bundle": "5.3.*",
         "symfony/serializer": "5.3.*",
         "symfony/twig-bundle": "5.3.*",
+        "symfony/validator": "5.3.*",
         "symfony/yaml": "5.3.*"
     },
     "require-dev": {
@@ -39,7 +40,6 @@
         "symfony/mailer": "5.3.*",
         "symfony/maker-bundle": "^1.34",
         "symfony/stopwatch": "5.3.*",
-        "symfony/validator": "5.3.*",
         "symfony/web-profiler-bundle": "5.3.*",
         "symfonycasts/reset-password-bundle": "^1.9",
         "symfonycasts/verify-email-bundle": "^1.5",
