@@ -54,9 +54,16 @@ Para el desarrollo de esta API se han utilizado las siguientes herramientas:
   - Gestión de recuperación de contraseña
 
 
-**✅ 4. Versión 4.0 -> En la última versión, la API se dockeriza.**
+**✅ 4. Versión 4.0 -> En la cuarta versión, la API se dockeriza.**
 
   - API dockerizada.
+
+**✅ 5. Versión 5.0 -> En la quinta versión, hemos añadido API Platform y un sistema de
+autenticación con JWT (JSON Web Token) de lado del servidor.**
+
+  - Diseño de API REST con estándar OpenAPI y API Platform en la implementación
+  - Servicios implementados (getTask, addTask, updateTask, deleteTask + usuarios)
+
 
 
 ## Autores ✒️

@@ -51,12 +51,12 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
         }
 
         // For example:\q
-        return new RedirectResponse($this->urlGenerator->generate('admin'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        return new RedirectResponse($this->urlGenerator->generate('/api'));
     }
 
     protected function getLoginUrl(Request $request): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
     }
+
 }

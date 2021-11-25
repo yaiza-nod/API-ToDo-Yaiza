@@ -11,14 +11,21 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  *
  * @ApiResource(
- *     collectionOperations={"get"={"normalization_context"={"groups"="user:list"}}},
- *     itemOperations={"get"={"normalization_context"={"groups"="user:item"}}},
+ *     collectionOperations={
+ *         "get",
+ *         "post"={"security"="is_granted('ROLE_ADMIN')"}
+ *     },
+ *     itemOperations={
+ *         "get",
+ *         "delete"={"security"="is_granted('ROLE_ADMIN')"}
+ *     },
  *     order={"id"="ASC"},
  *     paginationEnabled=false
  * )
@@ -29,44 +36,43 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"user:list", "user:item"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"user:list", "user:item"})
+     * @Assert\NotBlank
      */
     private $username;
 
     /**
      * @ORM\Column(type="json")
-     * @Groups({"user:list", "user:item"})
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Groups({"user:list", "user:item"})
+     *
+     * @Assert\NotBlank
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user:list", "user:item"})
+     * @Assert\NotBlank
      */
     private $email;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"user:list", "user:item"})
      */
     private $isVerified = false;
 
     /**
      * @ORM\OneToMany(targetEntity=Tarea::class, mappedBy="idUsuario", orphanRemoval=true)
-     * @Groups({"user:list", "user:item"})
+     *
+     * @Assert\NotNull
      */
     private $tareas;
 
@@ -75,12 +81,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $reset;
 
+
     public function __construct()
     {
         $this->tareas = new ArrayCollection();
     }
 
     public function getId(): ?int
+
+
     {
         return $this->id;
     }

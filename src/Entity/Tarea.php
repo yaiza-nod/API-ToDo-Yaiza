@@ -8,12 +8,20 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiProperty;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TareaRepository::class)
  * @ApiResource(
- *     collectionOperations={"get"={"normalization_context"={"groups"="tarea:list"}}},
- *     itemOperations={"get"={"normalization_context"={"groups"="tarea:item"}}},
+ *     attributes={"security"="is_granted('ROLE_USER')"},
+ *     collectionOperations={
+        "post"={"security"="is_granted('ROLE_ADMIN')", "security_message"="Solo el administrador puede añadir tareas."}
+ *     },
+ *     itemOperations={
+ *         "get"={"security"="is_granted('ROLE_USER') and object.owner == user", "security_message"="No eres el propietario de la tarea."},
+ *         "put"={"security"="is_granted('ROLE_ADMIN') or (object.owner == user and previous_object.owner == user)", "security_message"="No eres el propietario de la tarea."}
+ *     },
  *     order={"fecha"="DESC"},
  *     paginationEnabled=false
  * )
@@ -26,50 +34,58 @@ class Tarea
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"tarea:list", "tarea:item"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"tarea:list", "tarea:item"})
+     * @Assert\NotBlank
      */
     private $marcada;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"tarea:list", "tarea:item"})
+     * @Assert\NotNull
      */
     private $fecha;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"tarea:list", "tarea:item"})
+     * @Assert\NotBlank
      */
     private $titulo;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"tarea:list", "tarea:item"})
      */
     private $descripcion;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"tarea:list", "tarea:item"})
+     * @Assert\NotBlank
      */
     private $creacion;
 
     /**
+     * @param string $categoria Elegir una categoria.
+     *
      * @ORM\Column(type="string", length=50, nullable=true)
-     * @Groups({"tarea:list", "tarea:item"})
+     *
+     * @Assert\NotBlank
+     * @ApiProperty(
+     *      openapiContext={
+                "type" = "string",
+     *          "enum" = {"Ocio", "Trabajo"},
+     *          "example" = "Ocio"
+     *
+     *     }
+     * )
      */
     private $categoria;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tareas")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"tarea:list", "tarea:item"})
      */
     private $idUsuario;
 

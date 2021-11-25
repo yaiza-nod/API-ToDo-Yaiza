@@ -45,9 +45,7 @@ services:
     expose:
       - "3306"
     volumes:
-      - mydb:/var/lib/mysql
-      - ./mydb-script/APIToDoYaiza.sql:/docker-entrypoint-initdb.d/APIToDoYaiza.sql
+      - ./mydb:/var/lib/mysql
 
 volumes:
   mydb:
-  mydb-script:
