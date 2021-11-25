@@ -44,6 +44,8 @@ services:
       - "3306:3306"
     expose:
       - "3306"
+    security_opt:
+      - seccomp:unconfined
     volumes:
       - ./mydb:/var/lib/mysql
 

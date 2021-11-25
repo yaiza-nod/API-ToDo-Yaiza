@@ -26,10 +26,7 @@ class DashboardController extends AbstractDashboardController
             return $this->redirect('login');
         }
 
-        $routeBuilder = $this->get(AdminUrlGenerator::class);
-        $url = $routeBuilder->setController(TareaCrudController::class)->generateUrl();
-
-        return $this->redirect($url);
+        return $this->render('dashboard/my-dashboard.html.twig');
     }
 
     public function configureDashboard(): Dashboard
