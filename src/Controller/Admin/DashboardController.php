@@ -43,7 +43,7 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Usuarios', 'fa fa-user', User::class)->setPermission('ROLE_ADMIN'),
 
             MenuItem::section('Tarea'),
-            MenuItem::linkToCrud('Tareas', 'fa fa-comment', Tarea::class),
+            MenuItem::linkToCrud('Tareas', 'fa fa-clipboard-list', Tarea::class),
 
             MenuItem::linktoRoute('Back to the website', 'fas fa-home', 'principal'),
             MenuItem::linkToLogout('Logout', 'fa fa-sign-out'),

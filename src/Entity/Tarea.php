@@ -39,7 +39,6 @@ class Tarea
 
     /**
      * @ORM\Column(type="boolean")
-     * @Assert\NotBlank
      */
     private $marcada;
 

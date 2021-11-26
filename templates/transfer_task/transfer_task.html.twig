@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Transferir Tarea{% endblock %}
+
+{% block body %}
+
+    <h1>Transferir Tarea</h1>
+
+    {{ form_start(transferTaskForm) }}
+    {{ form_row(transferTaskForm.username) }}
+    <a href="{{ path('app_login') }}">Have an account?</a>
+    <br/>
+
+    <button type="submit" class="btn btn-lg btn-primary">Transferir Tarea</button>
+    {{ form_end(transferTaskForm) }}
+{% endblock %}

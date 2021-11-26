@@ -7,6 +7,7 @@ use App\Repository\TareaRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
@@ -24,7 +25,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Orm\EntityRepository;
-use Symfony\Component\Routing\Route;
 
 
 class TareaCrudController extends AbstractCrudController
@@ -100,16 +100,26 @@ class TareaCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
-        $transferTask = Action::new('TransferTask', '')
-            ->setIcon('fas fa-clone')
-            ->linkToRoute('transfer_task');
+        $transferTask = Action::new('TransferTask', 'Transferir Tarea')
+            ->setIcon('fas fa-clipboard-list')
+            ->linkToCrudAction('transfer_task');
 
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
             ->add(Crud::PAGE_EDIT, Action::SAVE_AND_ADD_ANOTHER)
             ->remove(Crud::PAGE_DETAIL, Action::DELETE)
             ->add(Crud::PAGE_INDEX, $transferTask)
-            ;
+            ->add(Crud::PAGE_DETAIL, $transferTask);
     }
 
+    public function transfer_task(AdminContext $context)
+    {
+        $id     = $context->getRequest()->query->get('entityId');
+        $tarea = $this->getDoctrine()->getRepository(Tarea::class)->find($id);
+        $end     = $tarea->getMarcada();
+
+        $end = $end ? 'true' : 'false';
+
+        return $this->redirectToRoute('transfer_task', array('id' => $id, 'end' => $end));
+    }
 }
