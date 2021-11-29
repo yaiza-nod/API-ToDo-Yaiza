@@ -88,6 +88,11 @@ class Tarea
      */
     private $idUsuario;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $vecesTransferida;
+
     public function __construct() {
 
         $this->setCreacion(new \DateTime('now'));
@@ -178,6 +183,18 @@ class Tarea
     public function setIdUsuario(?User $idUsuario): self
     {
         $this->idUsuario = $idUsuario;
+
+        return $this;
+    }
+
+    public function getVecesTransferida(): ?int
+    {
+        return $this->vecesTransferida;
+    }
+
+    public function setVecesTransferida(int $vecesTransferida): self
+    {
+        $this->vecesTransferida = $vecesTransferida;
 
         return $this;
     }

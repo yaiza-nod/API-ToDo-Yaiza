@@ -48,6 +48,8 @@ services:
       - seccomp:unconfined
     volumes:
       - ./mydb:/var/lib/mysql
+      - ./mydb-script/APIToDoYaiza.sql:/docker-entrypoint-initdb.d/APIToDoYaiza3.sql
 
 volumes:
   mydb:
+  mydb-script:

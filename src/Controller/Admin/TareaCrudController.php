@@ -43,6 +43,7 @@ class TareaCrudController extends AbstractCrudController
                 TextareaField::new('descripcion'),
                 DateTimeField::new('fecha'),
                 BooleanField::new('marcada'),
+                IntegerField::new('vecesTransferida')->hideOnForm(),
 
                 DateTimeField::new('creacion')->hideOnForm(),
                 ChoiceField::new('categoria')->setChoices([

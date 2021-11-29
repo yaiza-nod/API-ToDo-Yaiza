@@ -31,8 +31,49 @@ class TransferTaskController extends AbstractController
 
                 $comprobar = $this->getDoctrine()->getManager()->getRepository('App:User')->findOneBy(array('username' => $user['username']));
 
-                if ($comprobar != null && $user['username'] === $comprobar->getUsername() && $request->attributes->get('end') == 'false') {
-                    return $this->redirectToRoute('admin');
+                if ($comprobar != NULL) {
+
+                    // Obteniendo el id del usuario:
+
+                    $id = $comprobar->getId();
+
+                    // Hago esta consulta: SELECT count(*) FROM tarea WHERE id_usuario_id = 1 AND marcada = 0;
+
+                    $q = $this->getDoctrine()->getManager()->getRepository('App:Tarea')->createQueryBuilder('tarea')
+                        ->select('count(tarea.id)')
+                        ->where('tarea.idUsuario = :id')
+                        ->andWhere('tarea.marcada = false')
+                        ->setParameter('id', $id)
+                        ->getQuery()->getResult();
+
+                    // Asigno a $q la cantidad de tareas sin completar que tiene el usuario
+
+                    $q = $q[0][1];
+
+                    if ($user['username'] === $comprobar->getUsername() && $request->attributes->get('end') == 'false' && $q < 3) {
+
+                        // COmpruebo que la tarea no ha sido transferida mas de 2 veces
+
+                        $veces = $this->getDoctrine()->getManager()->getRepository('App:Tarea')->createQueryBuilder('tarea')
+                            ->select('tarea.vecesTransferida')
+                            ->where('tarea.id = '.$id)
+                            ->getQuery()->getResult();
+
+                        $veces = $veces[0]['vecesTransferida'];
+
+                        if ($veces < 2) {
+
+                            $sumarVez = $this->getDoctrine()->getManager()->getRepository('App:Tarea')->createQueryBuilder('tarea')
+                                ->update('App:Tarea', 'tarea')
+                                ->set('tarea.vecesTransferida', 'tarea.vecesTransferida + 1')
+                                ->where('tarea.id = '.$id)
+                                ->getQuery()->getResult();
+
+                            return $this->redirectToRoute('admin');
+                        }
+
+
+                    }
                 }
             }
         }
