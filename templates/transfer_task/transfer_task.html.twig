@@ -8,9 +8,11 @@
 
     {{ form_start(transferTaskForm) }}
     {{ form_row(transferTaskForm.username) }}
-    <a href="{{ path('app_login') }}">Have an account?</a>
+    {{ form_errors(transferTaskForm) }}
     <br/>
-
+    <a href="{{ path('admin') }}">Volver a las tareas</a>
+    <br/>
+    <br/>
     <button type="submit" class="btn btn-lg btn-primary">Transferir Tarea</button>
     {{ form_end(transferTaskForm) }}
 {% endblock %}

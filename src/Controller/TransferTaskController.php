@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\TransferTaskFormType;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -79,10 +80,20 @@ class TransferTaskController extends AbstractController
                                 ->getQuery()->getResult();
 
                             return $this->redirectToRoute('admin');
+
+                        } else {
+
+                            $form->addError(new FormError("La tarea ha sido transferida dos veces o más veces."));
                         }
 
+                    } else {
 
+                        $form->addError(new FormError("La tarea está completada o el usuario tiene más de 3 tareas pendientes."));
                     }
+
+                } else {
+
+                    $form->addError(new FormError("Usuario no encontrado."));
                 }
             }
         }

@@ -16,6 +16,9 @@ framework:
     serializer:
         enable_annotations: true
 
+    form:
+        legacy_error_messages: false
+
     #esi: true
     #fragments: true
     php_errors:
