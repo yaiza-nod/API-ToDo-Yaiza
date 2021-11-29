@@ -80,6 +80,7 @@ class TareaCrudController extends AbstractCrudController
         return $crud
             ->showEntityActionsInlined(true)
             ->setPageTitle('detail', fn (Tarea $tarea) => sprintf( $tarea->getTitulo()))
+            ->setPageTitle('edit', fn (Tarea $tarea) => sprintf( "Editando ".$tarea->getTitulo()))
             ;
     }
 
@@ -103,7 +104,10 @@ class TareaCrudController extends AbstractCrudController
     {
         $transferTask = Action::new('TransferTask', 'Transferir Tarea')
             ->setIcon('fas fa-clipboard-list')
-            ->linkToCrudAction('transfer_task');
+            ->linkToCrudAction('transfer_task')
+            ->displayIf(fn (Tarea $tarea) => ($tarea->getMarcada() == false) && ($tarea->getVecesTransferida() < 2));
+        ;
+
 
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
