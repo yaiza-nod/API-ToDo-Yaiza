@@ -31,6 +31,7 @@ class TransferTaskController extends AbstractController
 
                 $comprobar = $this->getDoctrine()->getManager()->getRepository('App:User')->findOneBy(array('username' => $user['username']));
 
+
                 if ($comprobar != NULL) {
 
                     // Obteniendo el id del usuario:
@@ -50,13 +51,15 @@ class TransferTaskController extends AbstractController
 
                     $q = $q[0][1];
 
+                    // SI el usuario introducido en el formulario coincide con algun registro de la base de datos, la tarea esta sin finalizar y el usuario no tiene mas de 2 pendientes:
+
                     if ($user['username'] === $comprobar->getUsername() && $request->attributes->get('end') == 'false' && $q < 3) {
 
-                        // COmpruebo que la tarea no ha sido transferida mas de 2 veces
+                        // Compruebo que la tarea no ha sido transferida mas de 2 veces
 
                         $veces = $this->getDoctrine()->getManager()->getRepository('App:Tarea')->createQueryBuilder('tarea')
                             ->select('tarea.vecesTransferida')
-                            ->where('tarea.id = '.$id)
+                            ->where('tarea.id = '.$request->attributes->get('id'))
                             ->getQuery()->getResult();
 
                         $veces = $veces[0]['vecesTransferida'];
@@ -66,7 +69,13 @@ class TransferTaskController extends AbstractController
                             $sumarVez = $this->getDoctrine()->getManager()->getRepository('App:Tarea')->createQueryBuilder('tarea')
                                 ->update('App:Tarea', 'tarea')
                                 ->set('tarea.vecesTransferida', 'tarea.vecesTransferida + 1')
-                                ->where('tarea.id = '.$id)
+                                ->where('tarea.id = '.$request->attributes->get('id'))
+                                ->getQuery()->getResult();
+
+                            $cambiarTarea = $this->getDoctrine()->getManager()->getRepository('App:Tarea')->createQueryBuilder('tarea')
+                                ->update('App:Tarea', 'tarea')
+                                ->set('tarea.idUsuario', $id)
+                                ->where('tarea.id = '.$request->attributes->get('id'))
                                 ->getQuery()->getResult();
 
                             return $this->redirectToRoute('admin');
