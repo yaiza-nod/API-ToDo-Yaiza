@@ -64,6 +64,17 @@ autenticación con JWT (JSON Web Token) de lado del servidor.**
   - Diseño de API REST con estándar OpenAPI y API Platform en la implementación
   - Servicios implementados (getTask, addTask, updateTask, deleteTask + usuarios)
 
+**✅ 6. Versión 6.0 -> EN la sexta versión, hemos añadido un controlador y formulario nuevos que
+permiten a los usuarios transferir tareas.**
+
+  - Todos los usuarios pueden realizar una transferencia de sus tareas a otros usuarios.
+
+  - Las tareas terminadas no son transferibles.
+
+  - Para poder transferir una tarea a un usuario, éste no puede tener más de 3 tareas pendientes.
+
+  - Una misma tarea no puede transferirse más de 2 veces.
+
 
 
 ## Autores ✒️
